@@ -10,22 +10,23 @@ import {FormsModule} from '@angular/forms'
 
 // Modulos
 import { PagesModule } from './pages/pages.module';
+import { ServiceModule } from './services/service.module';
 
 
-
+//serivicio de settings
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    
   ],
   imports: [
     PagesModule,
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ServiceModule
   ],
   providers: [],
   bootstrap: [AppComponent]
