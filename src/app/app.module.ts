@@ -6,14 +6,14 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 //modulo de formulario (temporal)
-import {FormsModule} from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 // Modulos
 import { PagesModule } from './pages/pages.module';
 import { ServiceModule } from './services/service.module';
 
 
-//serivicio de settings
+//servicio de settings
 
 @NgModule({
   declarations: [
@@ -26,6 +26,7 @@ import { ServiceModule } from './services/service.module';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     ServiceModule
   ],
   providers: [],

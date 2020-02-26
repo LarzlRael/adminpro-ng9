@@ -15,7 +15,8 @@
                         <li><a href="javascript:void()">My Balance</a></li>
                         <li><a href="javascript:void()">Inbox</a></li>
                         <li><a href="#account-settings">Configuraciones</a></li>
-                        <li><a routerLink="/login">Salir</a></li>
+                        <li><a (click)="_usuarioService.logOut()"
+                            class="pointer">Salir</a></li>
                     </ul>
                 </li>
                 <li class="nav-devider"></li>

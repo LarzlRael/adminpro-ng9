@@ -13,6 +13,7 @@ import { IncrementadorComponent } from '../components/incrementador/incrementado
 import { ChartsModule } from 'ng2-charts';
 import { GraficoDonasComponent } from './grafico-donas/grafico-donas.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
 @NgModule({
     imports: [
         SharedModule,
@@ -28,7 +29,8 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
         PagesComponent,
         IncrementadorComponent,
         GraficoDonasComponent,
-        AccountSettingsComponent
+        AccountSettingsComponent,
+        RxjsComponent
         
     ],
     exports: [

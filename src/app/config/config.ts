@@ -1,0 +1,1 @@
+export const uri_service = 'http://localhost:3000'
