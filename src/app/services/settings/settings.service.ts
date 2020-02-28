@@ -18,7 +18,6 @@ export class SettingsService {
   }
 
   guardarAjustes() {
-    console.log('guardando en el local storegag')
     localStorage.setItem('ajustes', JSON.stringify(this.settings))
   }
   cargarAjustes() {
@@ -33,7 +32,6 @@ export class SettingsService {
   aplicarTema(tema: string) {
     let url = `assets/css/colors/${tema}.css`;
     this._document.getElementById('theme').setAttribute('href', url);
-    console.log(tema)
     this.settings.tema = tema;
     this.settings.temaUrl = url;
     this.guardarAjustes();

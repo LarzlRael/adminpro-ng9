@@ -7,6 +7,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { RxjsComponent } from './rxjs/rxjs.component';
 
 import { LoginGuardGuard } from '../services/service.index';
+import { ProfileComponent } from './profile/profile.component';
 
 const pagesRoutes: Routes = [
 
@@ -19,6 +20,7 @@ const pagesRoutes: Routes = [
             { path: 'grafica1', component: Graficas1Component },
             { path: 'account-settings', component: AccountSettingsComponent },
             { path: 'rxjs', component: RxjsComponent },
+            { path: 'profile', component: ProfileComponent,data:{titulo:'Perfil de usuario'} },
             { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
         ]
     },

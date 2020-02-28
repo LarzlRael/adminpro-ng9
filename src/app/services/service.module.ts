@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http'
 //sweet alert
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { LoginGuardGuard } from './guads/login-guard.guard';
+import { SubirArchivoService } from './subirArchivo/subir-archivo.service';
 
 @NgModule({
   declarations: [],
@@ -24,7 +25,8 @@ import { LoginGuardGuard } from './guads/login-guard.guard';
     SidebarService,
     SharedService,
     UsuarioService,
-    LoginGuardGuard
+    LoginGuardGuard,
+    SubirArchivoService
   ]
 })
 export class ServiceModule { }

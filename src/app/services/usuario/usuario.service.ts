@@ -7,6 +7,7 @@ import swal from 'sweetalert2';
 
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { SubirArchivoService } from '../subirArchivo/subir-archivo.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +23,8 @@ export class UsuarioService {
 
   constructor(
     private http: HttpClient,
-    public router: Router
+    public router: Router,
+    public subirArchivoS: SubirArchivoService
   ) {
     this.cargarStorage();
   }
@@ -73,9 +75,11 @@ export class UsuarioService {
   //metodo para ingresar con google
 
   loginGoogle(token: string) {
+
     return this.http.post(`${this.uri}/google`, { token })
       .pipe(map((res: any) => {
         this.guardarStorage(res.id, res.token, res.userdb);
+        return true;
       }));
 
   }
@@ -98,5 +102,54 @@ export class UsuarioService {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
     this.router.navigate(['/login']);
+  }
+
+
+  // =================================|
+  //  metodo para ver actualizar
+  // =================================|
+
+  actualizarUsuario(usuario: Usuario) {
+
+    let url = this.uri + '/edit/' + this.usuario._id;
+
+    console.log('id que se va editar' + this.usuario._id);
+
+    return this.http.put(url, usuario, {
+      headers: {
+        token: this.token
+      }
+    }).pipe(map((res: any) => {
+
+      let usuariodb: Usuario = res.usuario;
+
+      this.guardarStorage(usuariodb._id, this.token, usuariodb);
+
+      swal.fire({
+        title: 'Se actualizo correctamente',
+        icon: 'success',
+        confirmButtonText: 'Cool'
+      })
+      return true;
+    }))
+  }
+
+  cambiarImage(archivo: File, id: string) {
+    console.log('\nusuario cambiar imagen service ACTIVO')
+    this.subirArchivoS.subirArchivo(archivo, 'usuarios', id).then(
+      (res: any) => {
+        this.usuario.img = res.usuario.img;
+        swal.fire({
+          title: 'Imagen Actualizada',
+          icon: 'success',
+          confirmButtonText: 'Cool'
+        });
+        this.guardarStorage(id, this.token, this.usuario);
+        console.log(res)
+      }
+    )
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
