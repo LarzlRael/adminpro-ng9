@@ -112,8 +112,9 @@ export class UsuarioService {
   actualizarUsuario(usuario: Usuario) {
 
     let url = this.uri + '/edit/' + this.usuario._id;
-
-    console.log('id que se va editar' + this.usuario._id);
+    console.log('\n\nhaciendo petiticion a ' + url)
+    
+    console.log('mostrandio informacion de usuario' , usuario)
 
     return this.http.put(url, usuario, {
       headers: {
@@ -121,9 +122,10 @@ export class UsuarioService {
       }
     }).pipe(map((res: any) => {
 
-      let usuariodb: Usuario = res.usuario;
-
-      this.guardarStorage(usuariodb._id, this.token, usuariodb);
+      if (usuario._id === this.usuario._id) {
+        let usuariodb: Usuario = res.usuario;
+        this.guardarStorage(usuariodb._id, this.token, usuariodb);
+      }
 
       swal.fire({
         title: 'Se actualizo correctamente',
@@ -138,6 +140,7 @@ export class UsuarioService {
     console.log('\nusuario cambiar imagen service ACTIVO')
     this.subirArchivoS.subirArchivo(archivo, 'usuarios', id).then(
       (res: any) => {
+        console.log(res)
         this.usuario.img = res.usuario.img;
         swal.fire({
           title: 'Imagen Actualizada',
@@ -151,5 +154,42 @@ export class UsuarioService {
       .catch(err => {
         console.log(err)
       })
+  }
+
+
+  // =================================|
+  // Metodo para obtener todos los uarios  |
+  // =================================|
+  cargarUsuarios(desde: number) {
+    // http://localhost:3000/users?desde=0
+    let url = uri_service + '/users?desde=' + desde;
+    return this.http.get(url, {
+      headers: {
+        token: this.token
+      }
+    });
+  }
+  buscarUsuarios(termino: string) {
+    // /coleccion/:tabla/:busqueda
+    let url = uri_service + '/busqueda/coleccion/usuarios/' + termino;
+    return this.http.get(url);
+  }
+
+  borrarUsuario(id) {
+    let uri = uri_service + '/' + id;
+
+    return this.http.delete(uri, {
+      headers: {
+        token: this.token
+      }
+    }).pipe(map(resp => {
+      swal.fire({
+        title: 'Usuario borrado',
+        text: `Usuario borrado satisfactoariemente`,
+        icon: 'success',
+        confirmButtonText: 'Cool'
+      })
+      return true;
+    }))
   }
 }

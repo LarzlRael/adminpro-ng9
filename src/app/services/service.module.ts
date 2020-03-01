@@ -13,6 +13,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { LoginGuardGuard } from './guads/login-guard.guard';
 import { SubirArchivoService } from './subirArchivo/subir-archivo.service';
 
+import { ModalUploadService } from '../components/modal-upload/modal-upload.service';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -26,7 +28,8 @@ import { SubirArchivoService } from './subirArchivo/subir-archivo.service';
     SharedService,
     UsuarioService,
     LoginGuardGuard,
-    SubirArchivoService
+    SubirArchivoService,
+    ModalUploadService
   ]
 })
 export class ServiceModule { }
