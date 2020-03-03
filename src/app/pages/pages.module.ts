@@ -8,7 +8,7 @@ import { PagesComponent } from './pages.component';
 import { SharedModule } from '../shared/shared.module';
 import { PAGES_ROUTES } from './pages.routing';
 
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
 
 // modulo de las graficas ng2-charts
@@ -20,6 +20,9 @@ import { PipesModule } from '../pipes/pipes.module';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
+import { HospitalesComponent } from './hospitales/hospitales.component';
+import { MedicosComponent } from './medicos/medicos.component';
+import { MedicoComponent } from './medico.component';
 
 
 @NgModule({
@@ -30,7 +33,7 @@ import { ModalUploadComponent } from '../components/modal-upload/modal-upload.co
         ChartsModule,
         PipesModule,
         CommonModule
-        
+
     ],
     declarations: [
         DashboardComponent,
@@ -43,8 +46,12 @@ import { ModalUploadComponent } from '../components/modal-upload/modal-upload.co
         RxjsComponent,
         ProfileComponent,
         UsuariosComponent,
-        ModalUploadComponent
-        
+        ModalUploadComponent,
+        HospitalesComponent,
+        HospitalesComponent,
+        MedicosComponent,
+        MedicoComponent
+
     ],
     exports: [
         DashboardComponent,
