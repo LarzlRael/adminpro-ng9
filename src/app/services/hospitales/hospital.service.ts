@@ -81,4 +81,14 @@ export class HospitalService {
     let url = uri_service + '/busqueda/coleccion/hospitales/' + termino;
     return this.http.get(url);
   }
+
+  obtenerHospital(id: string) {
+    //http://localhost:3000/hospital/5e5bf1abc14b3b0cc5637ae8
+    let url = uri_service + /hospital/ + id
+    return this.http.get(url  , {
+      headers: {
+        token: this.userSer.token
+      }
+    });
+  }
 }
