@@ -7,7 +7,7 @@ import { UsuarioService } from './usuario/usuario.service';
 
 //serivicos http
 
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 //sweet alert
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { LoginGuardGuard } from './guads/login-guard.guard';
@@ -16,6 +16,7 @@ import { SubirArchivoService } from './subirArchivo/subir-archivo.service';
 import { ModalUploadService } from '../components/modal-upload/modal-upload.service';
 import { HospitalService } from './hospitales/hospital.service';
 import { MedicoService } from './medico/medico.service';
+import { TokenInterceptor } from './token_interceptor/token_interceptor.service';
 
 @NgModule({
   declarations: [],
@@ -33,7 +34,12 @@ import { MedicoService } from './medico/medico.service';
     SubirArchivoService,
     ModalUploadService,
     HospitalService,
-    MedicoService
+    MedicoService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ]
 })
 export class ServiceModule { }

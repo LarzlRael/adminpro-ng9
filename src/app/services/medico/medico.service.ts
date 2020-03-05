@@ -51,22 +51,46 @@ export class MedicoService {
     }));
   }
 
+
   guardarMedico(medico: Medico) {
-    // http://localhost:3000/medicos/add-medico
-    let url = uri_service + '/medicos/add-medico';
-    return this.http.post(url, medico,
-      {
-        headers: {
-          token: this.userS.token
-        }
-      })
-      .pipe(map(res => {
+    // http://localhost:3000/medicos/edit/:id
+    let url = uri_service + '/medicos';
+    if (medico._id) {
+      url += '/edit/' + medico._id;
+
+      return this.http.put(url, medico).pipe(map(res => {
         swal.fire({
-          title: 'Medico Creado' + medico.nombre,
+          title: medico.nombre + ' Medico actualizado ',
           icon: 'success'
         })
         return res;
-      }))
-      ;
+      }));
+
+
+    } else {
+      // http://localhost:3000/medicos/add-medico
+      //añadiendo nuevo usuario
+      url += '/add-medico';
+      return this.http.post(url, medico,
+        {
+          headers: {
+            token: this.userS.token
+          }
+        })
+        .pipe(map(res => {
+          swal.fire({
+            title: medico.nombre + ' Medico Creado ',
+            icon: 'success'
+          })
+          return res;
+        }))
+        ;
+    }
   }
+
+  cargarMedico(id: string) {
+    let url = uri_service + '/medicos/' + id;
+    return this.http.get(url);
+  }
+
 }

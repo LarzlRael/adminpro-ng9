@@ -4,7 +4,9 @@ import { Hospital } from 'models/hospital.model';
 import { HospitalService } from '../services/hospitales/hospital.service';
 import { Medico } from 'models/medicos.model';
 import { MedicoService } from '../services/service.index';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
+import { ModalUploadService } from '../components/modal-upload/modal-upload.service';
 
 @Component({
   selector: 'app-medico',
@@ -19,8 +21,20 @@ export class MedicoComponent implements OnInit {
   constructor(
     private hospitalService: HospitalService,
     private medicoService: MedicoService,
-    public router: Router
-  ) { }
+    public router: Router,
+    private activateRoute: ActivatedRoute,
+    public _modalUploadS: ModalUploadService
+  ) {
+    this.activateRoute.params.subscribe(params => {
+
+      let id = params['id'];
+      console.log('\nid del medico ' + id)
+      if (id !== 'nuevo') {
+        this.cargarMedico(id);
+      }
+
+    })
+  }
 
   hospitals: Hospital[] = [];
   hospital: Hospital = new Hospital('', '');
@@ -29,6 +43,15 @@ export class MedicoComponent implements OnInit {
       (hospital: any) => {
         this.hospitals = hospital.Hospital;
         console.log(this.hospitals)
+      }
+    );
+
+    this._modalUploadS.notification.subscribe(
+      resp => {
+        this.medico.img = resp.medicoActualizado.img
+      },
+      err => {
+        console.log(err)
       }
     )
   }
@@ -42,7 +65,9 @@ export class MedicoComponent implements OnInit {
     this.medicoService.guardarMedico(this.medico).subscribe(
       (medico: any) => {
         console.log(medico);
-        this.router.navigate(['/medico', medico._id])
+        const id = medico.newMedico._id;
+        this.medico._id = id;
+        this.router.navigate(['/medico', id])
       },
       err => {
         console.log(err)
@@ -59,5 +84,23 @@ export class MedicoComponent implements OnInit {
         console.log(this.hospital)
       },
     )
+  }
+
+  cargarMedico(id: string) {
+    this.medicoService.cargarMedico(id).subscribe(
+      (res: any) => {
+        this.medico = res;
+        this.medico.hospital = res.hospital._id;
+        this.cambioHospital(this.medico.hospital);
+        console.log(this.medico);
+      },
+      err => {
+        console.log(err)
+      }
+    )
+  };
+
+  cambiarFoto() {
+    this._modalUploadS.mostrarModal('medicos', this.medico._id);
   }
 }

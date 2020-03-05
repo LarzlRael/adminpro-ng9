@@ -25,7 +25,8 @@
                     <button type="submit" class="btn btn-success waves-effect waves-light m-r-10"><i class="fa fa-save">
 
                         </i>Guardar</button>
-                    <button type="submit" class="btn btn-inverse waves-effect waves-light">Cancelar</button>
+                    <button routerLink="/medicos"
+                     class="btn btn-inverse waves-effect waves-light">Cancelar</button>
                 </form>
             </div>
         </div>
@@ -44,8 +45,9 @@
     <div class="col-md-3" *ngIf="medico._id">
         <div class="card card-body">
             <h4 class="box-title m-b-0">Fotografia</h4>
-            <img [src]="medico.img| imagen:'medico'"
-            class="img-circle"
+            <img (click)="cambiarFoto()"
+            class=" pointer img-circle img-fluid"
+             [src]="medico.img| imagen:'medico'"
              alt="">
         </div>
     </div>

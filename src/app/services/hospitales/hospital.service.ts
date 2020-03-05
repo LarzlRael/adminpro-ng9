@@ -30,7 +30,6 @@ export class HospitalService {
 
   getHospitals() {
     let url = uri_service + '/hospital/hospitales'
-    console.log('haciendo peticion a ' + url);
     return this.http.get(url, {
       headers: {
         token: this.token
@@ -41,7 +40,6 @@ export class HospitalService {
   borrarHospital(id: string) {
     // http://localhost:3000/hospital/5e4c53dd71f0a33f93916173
     let url = uri_service + '/hospital/' + id
-    console.log('\nhaciendo peticiona a:' + url);
     return this.http.delete(url, {
       headers: {
         token: this.token
@@ -85,10 +83,11 @@ export class HospitalService {
   obtenerHospital(id: string) {
     //http://localhost:3000/hospital/5e5bf1abc14b3b0cc5637ae8
     let url = uri_service + /hospital/ + id
-    return this.http.get(url  , {
+    return this.http.get(url, {
       headers: {
         token: this.userSer.token
       }
     });
   }
+  
 }
