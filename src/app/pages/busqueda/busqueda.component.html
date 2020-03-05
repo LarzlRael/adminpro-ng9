@@ -1,0 +1,91 @@
+<div class="row">
+    <div class="col-4">
+
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+                    Usuarios
+                </div>
+                <table class="table table-hover" *ngIf="usuarios.length>0">
+                    <thead>
+                        <td>Foto</td>
+                        <td>Nombre</td>
+                        
+                    </thead>
+                    <tbody>
+                        <tr class="pointer" routerLink="/usuarios" *ngFor="let usuario of usuarios">
+                            <td>
+                                <img class="img-fluid " [src]="usuario.img|imagen" alt="">
+                            </td>
+                            <td>{{usuario.nombre}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="alert alert-info" *ngIf="usuarios.length===0">
+                    No se encontraron coicidencias
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- medicos -->
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+                    Medicos
+                </div>
+                <table class="table table-hover" *ngIf="medicos.length>0">
+                    <thead>
+                        <td>Foto</td>
+                        <td>Nombre</td>
+                        
+                    </thead>
+                    <tbody>
+                        <tr class="pointer" *ngFor="let medico of medicos" [routerLink]="['/medico',medico._id]">
+
+                            <td>
+                                <img class="img-fluid " [src]="medico.img|imagen:'medico'" alt="">
+                            </td>
+                            <td>{{medico.nombre}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="alert alert-info" *ngIf="medicos.length===0">
+                    No se encontraron coincidencias
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- hospitales -->
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+                    Hospitales
+                </div>
+                <table class="table table-hover" *ngIf="hospitales.length>0">
+                    <thead>
+                        <td>Foto</td>
+                        <td>Nombre</td>
+                        
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let hospital of hospitales" 
+                        
+                        >
+                            <td>
+                                <img class="img-fluid " [src]="hospital.img|imagen:'hospital'" alt="">
+                            </td>
+                            <td>{{hospital.nombre}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="alert alert-info" *ngIf="hospitales.length===0">
+                    No se encontraron coincidencias
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

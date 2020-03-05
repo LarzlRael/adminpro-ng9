@@ -9,10 +9,12 @@ import { SidebarService, UsuarioService } from '../../services/service.index';
 export class SidebarComponent implements OnInit {
 
   constructor(public sidebar: SidebarService,
-    public _usuarioService: UsuarioService,
+    public usuarioService: UsuarioService,
+    public _sidebarService: SidebarService
   ) { }
 
   ngOnInit(): void {
+    this._sidebarService.cargarMenu();
   }
 
 }

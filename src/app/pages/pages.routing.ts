@@ -12,6 +12,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { HospitalesComponent } from './hospitales/hospitales.component';
 import { MedicosComponent } from './medicos/medicos.component';
 import { MedicoComponent } from './medico.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 
 const pagesRoutes: Routes = [
 
@@ -29,7 +30,8 @@ const pagesRoutes: Routes = [
             { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Mantenimiento de usuarios' } },
             { path: 'hospitales', component: HospitalesComponent, data: { titulo: 'Mantenimiento de Hospitales' } },
             { path: 'medicos', component: MedicosComponent, data: { titulo: 'Mantenimiento de medicos' } },
-            { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Actualizaro Medico' } },
+            { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Actualizar Medico' } },
+            { path: 'busqueda/:termino', component: BusquedaComponent, data: { titulo: 'Busqueda' } },
 
             { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
         ]

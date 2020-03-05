@@ -19,7 +19,7 @@ export class UsuarioService {
 
   token: string;
 
-
+  menu: any = [];
 
   constructor(
     private http: HttpClient,
@@ -33,9 +33,11 @@ export class UsuarioService {
     if (localStorage.getItem('token')) {
       this.token = localStorage.getItem('token');
       this.usuario = JSON.parse(localStorage.getItem('usuario'));
+      this.menu = JSON.parse(localStorage.getItem('menu'));
     } else {
       this.token = '';
       this.usuario = null;
+      this.menu = null;
     }
   }
   crearUsuario(usuario: Usuario) {
@@ -54,7 +56,7 @@ export class UsuarioService {
       }))
   }
 
-  //para poder hacer el recuerdame
+  // para poder hacer el recuerdame
   login(usuario, recodar: boolean) {
 
     if (recodar) {
@@ -66,7 +68,8 @@ export class UsuarioService {
 
     return this.http.post(`${this.uri}/login`, usuario)
       .pipe(map((res: any) => {
-        this.guardarStorage(res.id, res.token, res.userdb);
+        console.log(res);
+        this.guardarStorage(res.id, res.token, res.userdb, res.menu);
         return true
       }));
   }
@@ -78,19 +81,22 @@ export class UsuarioService {
 
     return this.http.post(`${this.uri}/google`, { token })
       .pipe(map((res: any) => {
-        this.guardarStorage(res.id, res.token, res.userdb);
+        this.guardarStorage(res.id, res.token, res.userdb, res.menu);
         return true;
       }));
 
   }
 
-  guardarStorage(id: string, token: string, usuario: Usuario) {
+  guardarStorage(id: string, token: string, usuario: Usuario, menu: any) {
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
     localStorage.setItem('usuario', JSON.stringify(usuario));
+    localStorage.setItem('menu', JSON.stringify(menu));
+
 
     this.usuario = usuario;
     this.token = token;
+    this.menu = menu;
   }
 
   estaLogeado() {
@@ -99,8 +105,10 @@ export class UsuarioService {
   logOut() {
     this.usuario = null;
     this.token = '';
+    this.menu = [];
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
+    localStorage.removeItem('menu');
     this.router.navigate(['/login']);
   }
 
@@ -113,8 +121,8 @@ export class UsuarioService {
 
     let url = this.uri + '/edit/' + this.usuario._id;
     console.log('\n\nhaciendo petiticion a ' + url)
-    
-    console.log('mostrandio informacion de usuario' , usuario)
+
+    console.log('mostrandio informacion de usuario', usuario)
 
     return this.http.put(url, usuario, {
       headers: {
@@ -124,7 +132,7 @@ export class UsuarioService {
 
       if (usuario._id === this.usuario._id) {
         let usuariodb: Usuario = res.usuario;
-        this.guardarStorage(usuariodb._id, this.token, usuariodb);
+        this.guardarStorage(usuariodb._id, this.token, usuariodb, this.menu);
       }
 
       swal.fire({
@@ -147,12 +155,12 @@ export class UsuarioService {
           icon: 'success',
           confirmButtonText: 'Cool'
         });
-        this.guardarStorage(id, this.token, this.usuario);
-        console.log(res)
+        this.guardarStorage(id, this.token, this.usuario, this.menu);
+        console.log(res);
       }
     )
       .catch(err => {
-        console.log(err)
+        console.log(err);
       })
   }
 
