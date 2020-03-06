@@ -5,9 +5,12 @@ import { uri_service } from 'src/app/config/config';
 //librear de sweall alert2
 import swal from 'sweetalert2';
 
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { SubirArchivoService } from '../subirArchivo/subir-archivo.service';
+import { Observable, throwError } from 'rxjs';
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -53,8 +56,24 @@ export class UsuarioService {
     return this.http.post(`${this.uri}/add-user`, usuario)
       .pipe(map((res: any) => {
         return res.usuario
-      }))
+      }), catchError(this.handleErrorRegister))
   }
+
+
+  handleErrorRegister(error) {
+    console.log(error)
+    const memsajeError = error.error.message;
+    let errorMessage = '';
+
+    swal.fire({
+      title: 'Error',
+      text: 'correo no disponible',
+      icon: 'error'
+    })
+    return throwError(errorMessage);
+  }
+
+
 
   // para poder hacer el recuerdame
   login(usuario, recodar: boolean) {
@@ -71,9 +90,26 @@ export class UsuarioService {
         console.log(res);
         this.guardarStorage(res.id, res.token, res.userdb, res.menu);
         return true
-      }));
+      }), catchError(this.handleErrorLogin))
+
   }
 
+  // =================================|
+  // metodo para ver el error  |
+  // =================================|
+
+  handleErrorLogin(error) {
+    console.log(error.error.message)
+    const memsajeError = error.error.message;
+    let errorMessage = '';
+
+    swal.fire({
+      title: 'Error',
+      text: memsajeError,
+      icon: 'error'
+    })
+    return throwError(errorMessage);
+  }
 
   //metodo para ingresar con google
 
@@ -92,7 +128,6 @@ export class UsuarioService {
     localStorage.setItem('token', token);
     localStorage.setItem('usuario', JSON.stringify(usuario));
     localStorage.setItem('menu', JSON.stringify(menu));
-
 
     this.usuario = usuario;
     this.token = token;
@@ -119,16 +154,12 @@ export class UsuarioService {
 
   actualizarUsuario(usuario: Usuario) {
 
+    console.log('\nmostrando informacion de usuario', usuario)
+
     let url = this.uri + '/edit/' + this.usuario._id;
-    console.log('\n\nhaciendo petiticion a ' + url)
 
-    console.log('mostrandio informacion de usuario', usuario)
 
-    return this.http.put(url, usuario, {
-      headers: {
-        token: this.token
-      }
-    }).pipe(map((res: any) => {
+    return this.http.put(url, usuario).pipe(map((res: any) => {
 
       if (usuario._id === this.usuario._id) {
         let usuariodb: Usuario = res.usuario;
@@ -145,7 +176,6 @@ export class UsuarioService {
   }
 
   cambiarImage(archivo: File, id: string) {
-    console.log('\nusuario cambiar imagen service ACTIVO')
     this.subirArchivoS.subirArchivo(archivo, 'usuarios', id).then(
       (res: any) => {
         console.log(res)

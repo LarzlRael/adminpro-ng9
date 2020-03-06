@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
     }
 
     console.log('usuario que se va actualizar', this.usuario)
-    this.usuarioService.actualizarUsuario(usuario).subscribe(
+    this.usuarioService.actualizarUsuario(this.usuario).subscribe(
       res => {
         console.log(res)
       }, err => {

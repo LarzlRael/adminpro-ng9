@@ -14,5 +14,6 @@ export class NopagefoundComponent implements OnInit {
   ngOnInit(): void {
     init_plugins();
   }
+  anio: number = new Date().getFullYear()
 
 }
