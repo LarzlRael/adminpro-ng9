@@ -27,27 +27,17 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
 
 
 @NgModule({
-    imports: [
-        SharedModule,
-        PAGES_ROUTES,
-        FormsModule,
-        ChartsModule,
-        PipesModule,
-        CommonModule
-
-    ],
     declarations: [
         DashboardComponent,
         ProgressComponent,
         Graficas1Component,
-        PagesComponent,
         IncrementadorComponent,
         GraficoDonasComponent,
         AccountSettingsComponent,
         RxjsComponent,
         ProfileComponent,
         UsuariosComponent,
-        ModalUploadComponent,
+        // ModalUploadComponent,
         HospitalesComponent,
         HospitalesComponent,
         MedicosComponent,
@@ -59,10 +49,18 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
         DashboardComponent,
         ProgressComponent,
         Graficas1Component,
-        PagesComponent,
-        IncrementadorComponent,
-        SharedModule,
     ],
+
+    imports: [
+        CommonModule,
+        SharedModule,
+        PAGES_ROUTES,
+        FormsModule,
+        ChartsModule,
+        PipesModule,
+    ],
+
+
     providers: [],
 })
 export class PagesModule { }

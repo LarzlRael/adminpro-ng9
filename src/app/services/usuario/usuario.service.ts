@@ -32,6 +32,19 @@ export class UsuarioService {
     this.cargarStorage();
   }
 
+  renuevaToken() {
+    // http://localhost:3000/renuevaToken
+    let url = uri_service + '/renuevaToken';
+    return this.http.get(url).pipe(map(
+      (res: any) => {
+        this.token = res.token;
+        console.log('token renovado')
+        localStorage.setItem('token', this.token);
+        return true;
+      }))
+  }
+
+
   cargarStorage() {
     if (localStorage.getItem('token')) {
       this.token = localStorage.getItem('token');

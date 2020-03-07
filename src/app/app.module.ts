@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 // Modulos
 import { PagesModule } from './pages/pages.module';
 import { ServiceModule } from './services/service.module';
+import { PagesComponent } from './pages/pages.component';
+import { SharedModule } from './shared/shared.module';
 
 
 //servicio de settings
@@ -20,14 +22,18 @@ import { ServiceModule } from './services/service.module';
     AppComponent,
     LoginComponent,
     RegisterComponent,
+    PagesComponent
   ],
   imports: [
-    PagesModule,
+    // PagesModule,
+    
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    ServiceModule
+    ServiceModule,
+    SharedModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

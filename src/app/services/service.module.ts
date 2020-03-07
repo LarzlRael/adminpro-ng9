@@ -20,6 +20,7 @@ import { TokenInterceptor } from './token_interceptor/token_interceptor.service'
 
 import { LoginGuardGuard } from './guads/login-guard.guard';
 import { AdminGuard } from './guards/admin.guard';
+import { VerificaTokenGuard } from './service.index';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { AdminGuard } from './guards/admin.guard';
     MedicoService,
     LoginGuardGuard,
     AdminGuard,
+    VerificaTokenGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

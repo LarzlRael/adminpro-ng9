@@ -1,4 +1,5 @@
 
+
 export { MedicoService } from './medico/medico.service';
 
 export { SubirArchivoService } from './subirArchivo/subir-archivo.service';
@@ -11,4 +12,10 @@ export { SharedService } from './shared/shared.service';
 export { SidebarService } from './shared/sidebar.service';
 
 export { AdminGuard } from './guards/admin.guard';
+
 export { LoginGuardGuard } from './guads/login-guard.guard';
+
+export { VerificaTokenGuard } from './guards/verifica-token.guard';
+
+
+
